@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 
 data = keras.datasets.fashion_mnist
 
+class_names = ['T-shirt/top','Trouser','Pullover','Dress','Coat','Sandal','Shirt','Sneaker','Bag','Ankle boot']
+
 (train_images, train_labels),(test_images,test_labels) = data.load_data()
 
 train_images = train_images/255.0
@@ -25,3 +27,18 @@ print("Tested Acc:",test_acc)
 
 #Before this the code is same as making of model
 #NOW NEW CODE
+
+#When we are doing a prediction we need to pass the parameters inside predict function as
+#  a LIST or a NUMPY ARRAY because 
+#  predict does is it gets the prediction of diffirent images and thus we need to send the list.
+prediction = model.predict(test_images)
+print(prediction)
+
+# Validating  model by showing some images from test and what model predicted 
+
+for i in range(5):
+    plt.grid(False)
+    plt.imshow(test_images[i],cmap = plt.cm.binary)
+    plt.xlabel("Actual: "+ class_names[test_labels[i]])
+    plt.title("Prediction: "+ class_names[np.argmax(prediction[i])])
+    plt.show()
